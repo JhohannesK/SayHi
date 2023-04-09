@@ -32,7 +32,12 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="mt-5">
-            <AllTheHis data={getAll} />
+            {isLoading && <div>Loading...</div>}
+            {error && <div>Something went wrong</div>}
+            {getAll &&
+              getAll.map((data, index) => (
+                <AllTheHis data={data} key={index} />
+              ))}
           </div>
         </div>
       </main>

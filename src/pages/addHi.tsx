@@ -1,11 +1,32 @@
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
+import { api } from "~/utils/api";
 
 const AddHi = () => {
   const [formData, setFormData] = React.useState({
     username: "",
     message: "",
+  });
+
+  const utils = api.useContext();
+
+  const addHi = api.sayhi.addHi.useMutation({
+    onMutate: () => {
+      utils.sayhi.getAll.cancel().catch((error) => {
+        console.error(error);
+      });
+    },
+
+    onSettled: () => {
+      utils.sayhi.getAll.invalidate().catch((error) => {
+        console.error(error);
+      });
+    },
+
+    onSuccess: () => {
+      console.log("onSuccess");
+    },
   });
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,10 +65,7 @@ const AddHi = () => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            // addNewNote.mutate({
-            //   title: formData.title,
-            //   description: formData.description,
-            // });
+            addHi.mutate(formData);
           }}
         >
           <input
