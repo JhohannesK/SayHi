@@ -7,7 +7,6 @@ import AllTheHis from "./allTheHis";
 
 const Home: NextPage = () => {
   const { data: getAll, error, isLoading } = api.sayhi.getAll.useQuery();
-  console.log("🚀 ~ file: index.tsx:9 ~ getAll:", getAll);
 
   return (
     <>
@@ -37,7 +36,7 @@ const Home: NextPage = () => {
             <div className="flex flex-col items-center gap-5">
               {getAll &&
                 getAll.map((data, index) => (
-                  <AllTheHis data={data} key={index} />
+                  <AllTheHis metadata={data} key={index} />
                 ))}
             </div>
           </div>
