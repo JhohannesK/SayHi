@@ -34,10 +34,12 @@ const Home: NextPage = () => {
           <div className="mt-5">
             {isLoading && <div>Loading...</div>}
             {error && <div>Something went wrong</div>}
-            {getAll &&
-              getAll.map((data, index) => (
-                <AllTheHis data={data} key={index} />
-              ))}
+            <div className="flex flex-col items-center gap-5">
+              {getAll &&
+                getAll.map((data, index) => (
+                  <AllTheHis data={data} key={index} />
+                ))}
+            </div>
           </div>
         </div>
       </main>
